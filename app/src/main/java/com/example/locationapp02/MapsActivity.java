@@ -21,12 +21,14 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
 
-    LocationManager locationManager;
+    private LocationManager locationManager;
     private GoogleMap mMap;
+    private Marker mMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,7 +155,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void mark(Location loc) {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(loc.getLatitude(), loc.getLongitude())));
+        if (mMarker != null)
+            mMarker.remove();
+        mMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(loc.getLatitude(), loc.getLongitude())));
     }
 
 }
